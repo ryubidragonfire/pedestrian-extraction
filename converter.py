@@ -111,9 +111,15 @@ if __name__ == '__main__':
     #dir_path = './'
     dir_path = './data/'
     # phase can be 'train_', 'test_' or 'val_'
-    phase = 'train3_'
+    #phase = 'train_' # 0-5
+    #phase = 'val_' # 6-8
+    phase = 'test_' # 9-11
+    
     # num ranges from 0~11
-    num = [0, 11]
+    #num = [0, 11]
+    #num = [0, 5]
+    #num = [6, 8]
+    num = [9, 11]
 
     time_flag = time.time()
     img_save_path = os.path.join(dir_path, phase + 'images')
