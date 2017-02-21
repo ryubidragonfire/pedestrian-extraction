@@ -22,3 +22,7 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
       2to3 filename.py -w # -w is to write
   ```
 - for convenience, use `download-untar.sh`
+
+## TODO:
+- unpickle annotation
+- try fast-r-cnn
