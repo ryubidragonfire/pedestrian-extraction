@@ -14,4 +14,6 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
 - use [this](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor/blob/master/download.sh) to download to `./data`, and extract.
 
 ## Convert
-- use [this](https://github.com/hizhangp/caltech-pedestrian-converter/blob/master/converter.py) to convert Caltech dataset to individual images with annotations of bounding box.
+- use [this*](https://github.com/hizhangp/caltech-pedestrian-converter/blob/master/converter.py) to convert Caltech dataset to individual images with annotations of bounding box.
+
+* Written in python 2. Use `2to3` to convert from python 2 to python 3.
