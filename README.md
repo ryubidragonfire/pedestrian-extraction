@@ -18,7 +18,7 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
 - use [this<sup>1</sup>](https://github.com/hizhangp/caltech-pedestrian-converter/blob/master/converter.py) to convert Caltech dataset to individual images with annotations of bounding box. 
   - <sup>1</sup> is written in python 2. Use `2to3` to convert from python 2 to python 3.
   - in a python console, 
-  
-      `2to3 filename.py -w # -w is to write`
-
+  ```python
+      2to3 filename.py -w # -w is to write
+  ```
 - for convenience, use `download-untar.sh`
