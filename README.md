@@ -10,8 +10,8 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
   - https://gist.github.com/psycharo/7e6422a491d93e1e3219/
     - Convert Caltech Pedestrains Dataset into list of images.
 
+## Download data
+- use [this](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor/blob/master/download.sh) to download to `./data`, and extract.
 
-## TO DO:
-- donwload to DSVM
-- extract
-- try out 'python utility'
+## Convert
+- use [this](https://github.com/hizhangp/caltech-pedestrian-converter/blob/master/converter.py) to convert Caltech dataset to individual images with annotations of bounding box.
