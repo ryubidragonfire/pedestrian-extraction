@@ -106,3 +106,22 @@ def main():
 if __name__ == '__main__':
     main()
 
+
+########################################################################################################
+#{'end': 924,                   #the last frame in which object appears (1 indexed)
+# 'hide': 0,                    #0/1 value indicating object is 'hidden' (used during labeling)
+# 'id': 3,
+# 'init': 1,                    #0/1 value indicating whether object w given id exists
+# 'lbl': 'person',              #a string label describing object type (eg: 'pedestrian')
+# 'lock': 1,                    #0/1 value indicating bb is 'locked' (used during labeling)
+# 'occl': 1,                    #0/1 value indicating if bb is occluded
+# 'pos': [586.9452554744529,    #[l t w h]: bb indicating predicted object extent
+#         154.16479147988605,
+#         25.5445751443807,
+#         75.21355401889747],
+# 'posv': [588.3018808211706,   #[l t w h]: bb indicating visible region (may be [0 0 0 0])
+#          159.0577355188155,
+#          24.4093609898772,
+#          25.750538092197132],
+# 'str': 885}                   #the first frame in which object appears (1 indexed)
+########################################################################################################
