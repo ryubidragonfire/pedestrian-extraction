@@ -36,3 +36,4 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
 
 ## TODO:
 - try fast-r-cnn
+- see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
