@@ -23,6 +23,12 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
   ```
 - for convenience, use `download-untar.sh`
 
+## Extract necessary data required for Fast-R-CNN
+- use `extract-labelled-data-for-cntk-fast-r-cnn.py` to:
+  - extract only images that contains a person, since not all the images contain a person, then:
+    1. extract position of bounding box of a person, then write to a file `*imagename*.bboxes.tsv`
+    2. write label `person` to a file `*imagename*.bboxes.labels.tsv`
+    3. copy corresponding image files to `./output_for_cntk/`
+
 ## TODO:
-- unpickle annotation
 - try fast-r-cnn
