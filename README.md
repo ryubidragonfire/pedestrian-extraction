@@ -24,6 +24,9 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
 - for convenience, use `download-untar.sh`
 
 ## Extract necessary data required for Fast-R-CNN
+- use `extract-unique-labels-used.py` to extract unique labels used to label the Caltech images.
+  - it output a `set` of labels on the stdout.
+  - use only `person` and `people` in `extract-labelled-data-for-cntk-fast-r-cnn.py` (I believe those two labels mean that there is a person in the image. Please let me know if you think otherwise.)
 - use `extract-labelled-data-for-cntk-fast-r-cnn.py` to:
   - extract only images that contains a person, since not all the images contain a person, then:
     1. extract position of bounding box of a person, then write to a file `imagename.bboxes.tsv`
