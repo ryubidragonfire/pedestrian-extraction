@@ -8,6 +8,8 @@ purpose: extract data for CNTK Fast-R-CNN
 
 ### -i ./data/val_annotations.pkl -o ./output_for_cntk/positives/ -im ./data/val_images/
 
+### TODO: facto 'write' into 'writepositions' and 'writelabels', factor 'copy' into 'copyimages'
+
 import pickle
 import argparse
 
