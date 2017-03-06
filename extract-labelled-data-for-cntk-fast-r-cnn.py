@@ -6,7 +6,7 @@ Created on Mon Mar  6 13:45:34 2017
 purpose: extract data for CNTK Fast-R-CNN
 """
 
-### -i ./data/val_annotations.pkl -o ./output_for_cntk/
+### -i ./data/val_annotations.pkl -o ./output_for_cntk/positives/ -im ./data/val_images/
 
 import pickle
 import argparse
@@ -21,9 +21,11 @@ def main():
     
     argparser.add_argument('-i', '--pklIn', help='filename.pkl', required=True)
     argparser.add_argument('-o', '--dirOut', help='directory for output files', required=True)
+    argparser.add_argument('-im', '--dirIm', help='directory for images files to copy from', required=True)
     args = argparser.parse_args()
     pklIn = args.pklIn
     dirOut = args.dirOut
+    dirIm = args.dirIm
     
     annotations = pickle.load(open(pklIn, "rb" ))
     
@@ -84,12 +86,12 @@ def main():
                                     # write out list_posv_rounded
                                     import csv
                                     filename_bboxes = 'img{}{}{:04}.jpg'.format(imageset, seq, frame); #print('filename_bboxes: ' + filename_bboxes)
-                                    with open('./output_for_cntk/positives/' + filename_bboxes + '.bboxes.tsv', 'w', newline='') as f:
+                                    with open(dirOut + filename_bboxes + '.bboxes.tsv', 'w', newline='') as f:
                                         writer = csv.writer(f, delimiter='\t')
                                         writer.writerows(list_posv_rounded)
                                         
                                     # write out labels
-                                    with open('./output_for_cntk/positives/' + filename_bboxes + '.bboxes.labels.tsv', 'w', newline='') as f:
+                                    with open(dirOut + filename_bboxes + '.bboxes.labels.tsv', 'w', newline='') as f:
                                         writer = csv.writer(f)
                                         for l in range(len(list_posv_rounded)):
                                             writer.writerow(['person'])
@@ -98,8 +100,8 @@ def main():
                 
                                     # copy the frame from one folder to another folder
                                     import shutil
-                                    srcfile = './data/val_images/' + filename_bboxes
-                                    dstdir = './output_for_cntk/positives/'
+                                    srcfile = dirIm + filename_bboxes
+                                    dstdir = dirOut
                                     shutil.copy(srcfile, dstdir)
 
 
