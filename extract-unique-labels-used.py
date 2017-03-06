@@ -7,9 +7,9 @@ purpose: check for labels used
 """
 
 ### -i ./data/val_annotations.pkl
-### set 00 to set 05:
+### set 00 to set 05: {'person', 'people', 'person-fa', 'person?'}
 ### set 06 to set 07: {'people', 'person', 'person?', 'person-fa'}
-### set 08 to set 10:
+### set 08 to set 10: {'person?', 'person-fa', 'person', 'people'}
 
 import pickle
 import argparse
