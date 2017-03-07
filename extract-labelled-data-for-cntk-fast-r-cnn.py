@@ -13,7 +13,6 @@ import pickle
 import argparse
 import shutil
 import csv
-import sys
 
 # write out bounding boxes
 def writebboxes(dirOut, filename_bboxes, list_posv_rounded):

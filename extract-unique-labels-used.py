@@ -41,9 +41,6 @@ def main():
             # get frames of type dict from a sequence, e.g. 
             frames = seq_dict.get('frames'); #print(len(frames))
             
-            # counter
-            count = 0
-            
             for frame, frame_list in frames.items(): 
                 #print(frame) # frame number?
                 for fr in frame_list:
