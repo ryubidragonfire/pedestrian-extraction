@@ -35,5 +35,9 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
   - see `anno-06.txt` to get an idea of the data sturcture
 
 ## TODO:
+- create `negative` samples
 - try fast-r-cnn
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
+
+## Known Bugs:
+- only extract one pedestrian, where multiple pedestrians exist in a frame.
