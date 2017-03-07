@@ -28,11 +28,17 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
   - it output a `set` of labels on the stdout.
   - use only `person` and `people` in `extract-labelled-data-for-cntk-fast-r-cnn.py` (I believe those two labels mean that there is a person in the image. Please let me know if you think otherwise.)
 - use `extract-labelled-data-for-cntk-fast-r-cnn.py` to:
-  - extract only images that contains a person, since not all the images contain a person, then:
+  - extract only images that contains one or more people, where the size of bounding box [w,h] >= [40, 70], since not all the images contain a person, then:
     1. extract position of bounding box of a person, then write to a file `imagename.bboxes.tsv`
     2. write label `person` to a file `imagename.bboxes.labels.tsv`
     3. copy corresponding image files to `./output_for_cntk/`
-  - see `anno-06.txt` to get an idea of the data sturcture
+    
+therefore, gives:
+  - Training images: 13,414
+  - Test images: 1,940
+  - Validation images: 3,847
+  
+See `anno-06.txt` to get an idea of the data sturcture
 
 ## TODO:
 - create `negative` samples
@@ -40,4 +46,4 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
 
 ## Known Bugs:
-- only extract one pedestrian, where multiple pedestrians exist in a frame.
+
