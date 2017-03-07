@@ -40,8 +40,11 @@ therefore, gives:
   
 See `anno-06.txt` to get an idea of the data sturcture
 
+## Filter Negative Samples from database
+- use `extract-negative-samples.py`
+- will copy images contain no people into a `negatives` folder
+
 ## TODO:
-- create `negative` samples
 - try fast-r-cnn
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
 
