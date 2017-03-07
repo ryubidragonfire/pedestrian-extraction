@@ -33,7 +33,7 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
     2. write label `person` to a file `imagename.bboxes.labels.tsv`
     3. copy corresponding image files to `./output_for_cntk/`
     
-therefore, gives:
+It gives:
   - Training images: 13,414
   - Test images: 1,940
   - Validation images: 3,847
@@ -43,6 +43,11 @@ See `anno-06.txt` to get an idea of the data sturcture
 ## Filter Negative Samples from database
 - use `extract-negative-samples.py`
 - will copy images contain no people into a `negatives` folder
+
+It gives:
+  - Training images: 61,336
+  - Test images: 19,828
+  - Validation images: 36,638
 
 ## TODO:
 - try fast-r-cnn
