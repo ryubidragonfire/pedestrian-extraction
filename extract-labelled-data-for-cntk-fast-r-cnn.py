@@ -6,12 +6,38 @@ Created on Mon Mar  6 13:45:34 2017
 purpose: extract data for CNTK Fast-R-CNN
 """
 
-### -i ./data/val_annotations.pkl -o ./output_for_cntk/positives/ -im ./data/val_images/
-
-### TODO: facto 'write' into 'writepositions' and 'writelabels', factor 'copy' into 'copyimages'
+### -i ./data/val_annotations.pkl -o ./output_for_cntk/val/positives/ -im ./data/val_images/
+### -i ./data/train_annotations.pkl -o ./for_cntk/train/positives/ -im ./data/train_images/
 
 import pickle
 import argparse
+import shutil
+import csv
+import sys
+
+# write out bounding boxes
+def writebboxes(dirOut, filename_bboxes, list_posv_rounded):
+    with open(dirOut + filename_bboxes + '.bboxes.tsv', 'w', newline='') as f:
+        writer = csv.writer(f, delimiter='\t')
+        writer.writerows(list_posv_rounded)
+    return
+ 
+# write out labels
+def writelabels(dirOut, filename_bboxes, list_posv_rounded):
+    with open(dirOut + filename_bboxes + '.bboxes.labels.tsv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        for l in range(len(list_posv_rounded)):
+            writer.writerow(['person'])
+        #if len(list_posv_rounded) > 1:
+        #    print('> 1 object : filename_bboxes: ' + filename_bboxes)
+    return
+
+# copy the frame from one folder to another folder
+def copypositiveimages(dirIm, filename_bboxes, dirOut):
+    srcfile = dirIm + filename_bboxes
+    dstdir = dirOut
+    shutil.copy(srcfile, dstdir)
+    return
 
 def main():
     
@@ -37,47 +63,43 @@ def main():
     # for each image set, e.g. set00, set01, ...set10
     for imageset, imageset_dict in sorted(annotations.items()):
         print('image set:' + imageset) # image set: '00', '01', ....'10'
-        
         #for each sequence in a set, e.g. '00', '01', ...
         for seq, seq_dict in sorted(imageset_dict.items()):
             print('   sequence: ' + seq) # sequence in each image set: '00', '01', '02', ... '18'
             #print(seq_dict.keys()) # 'frames', 'logLen', 'log', 'altered', 'nFrame', 'maxObj'
-            
             # get frames of type dict from a sequence, e.g. 
             frames = seq_dict.get('frames'); #print(len(frames))
-            
+            #print(seq_dict.keys())
             # counter
             count = 0
             
             for frame, frame_list in frames.items(): 
                 #print(frame) # frame number?
-                
+                # a list to hold multiple 'posv_rounded'
+                list_posv_rounded = []
                 # for every frame
                 for fr in frame_list:
-                    # a list to hold multiple 'posv_rounded'
-                    list_posv_rounded = []
-                
                     # if 'lbl' contain object of interest, i.e. fr['lbl']=='people' or fr['lbl']=='person'
                     if fr['lbl'] in lbl_wanted:
                         # if type is list
-                        if type(fr['posv']) is list:
+                        if type(fr['pos']) is list:
                             # if obj is visible, i.e. is 'posv' is non zeros
-                            if fr['posv'] != [0,0,0,0]:
-                                # if obj size satisfied a threshold, i.e. w > 20 and h > 40
-                                if fr['posv'][2]>=20 and fr['posv'][3]>=40: 
+                            if fr['pos'] != [0,0,0,0]:
+                                # if obj size satisfied a threshold, i.e. w > 30 and h > 60
+                                if fr['pos'][2]>=40 and fr['pos'][3]>=70: 
                                     # a list to hold rounded 'posv'
                                     posv_rounded = []
                             
                                     #print(v['lbl']) # not needed
                                     #print(v['posv']) # YES, NEEDED
                                     # round up decimal
-                                    posv_rounded = [round(p) for p in fr['posv']]; #print(posv_rounded)
+                                    posv_rounded = [round(p) for p in fr['pos']]; #print(posv_rounded)
                                     # convert from [x, y, w, h] to [x_topleft, y_topleft, x_bottomright, y_bottomright]
                                     posv_rounded[2] = posv_rounded[0] + posv_rounded[2]
                                     posv_rounded[3] = posv_rounded[1] + posv_rounded[3]; #print(posv_rounded)
                                     # put posv_rounded into the list list_posv_rounded, required when more than one obj present in a single frame
-                                    list_posv_rounded.append(posv_rounded); #print(list_posv_rounded)
-                                
+                                    list_posv_rounded.append(posv_rounded); #print('\n'+'list_posv_rounded' + str(list_posv_rounded))
+                                    
                                     #print(v['id']) # not needed
                                     #print(v['str']) # not needed
                                     #print(v['end']) # not needed
@@ -85,26 +107,19 @@ def main():
                                     #print(frame) 
                                     #print('..........count............' + str(count))
                     
-                                    # write out list_posv_rounded
-                                    import csv
+                                    # generate filename
                                     filename_bboxes = 'img{}{}{:04}.jpg'.format(imageset, seq, frame); #print('filename_bboxes: ' + filename_bboxes)
-                                    with open(dirOut + filename_bboxes + '.bboxes.tsv', 'w', newline='') as f:
-                                        writer = csv.writer(f, delimiter='\t')
-                                        writer.writerows(list_posv_rounded)
-                                        
+                    
+                                    # write out list_posv_rounded
+                                    writebboxes(dirOut, filename_bboxes, list_posv_rounded)    
+                                    
                                     # write out labels
-                                    with open(dirOut + filename_bboxes + '.bboxes.labels.tsv', 'w', newline='') as f:
-                                        writer = csv.writer(f)
-                                        for l in range(len(list_posv_rounded)):
-                                            writer.writerow(['person'])
-                                        if len(list_posv_rounded) > 1:
-                                            print('> 1 object : filename_bboxes: ' + filename_bboxes)
-                
+                                    writelabels(dirOut, filename_bboxes, list_posv_rounded)
+            
                                     # copy the frame from one folder to another folder
-                                    import shutil
-                                    srcfile = dirIm + filename_bboxes
-                                    dstdir = dirOut
-                                    shutil.copy(srcfile, dstdir)
+                                    copypositiveimages(dirIm, filename_bboxes, dirOut)
+                                    
+                #sys.exit()
 
 
 if __name__ == '__main__':
