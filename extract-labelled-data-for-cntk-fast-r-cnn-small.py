@@ -6,13 +6,14 @@ Created on Mon Mar  6 13:45:34 2017
 purpose: extract data for CNTK Fast-R-CNN
 """
 
-### -i ./data/val_annotations.pkl -o ./output_for_cntk/val/positives/ -im ./data/val_images/
-### -i ./data/train_annotations.pkl -o ./for_cntk/train/positives/ -im ./data/train_images/
+### -i ./data/val_annotations.pkl -o ./output_for_cntk/small/val/positives/ -im ./data/val_images/
+### -i ./data/train_annotations.pkl -o ./for_cntk/small/train/positives/ -im ./data/train_images/
 
 import pickle
 import argparse
 import shutil
 import csv
+import random
 
 # write out bounding boxes
 def writebboxes(dirOut, filename_bboxes, list_posv_rounded):
@@ -70,47 +71,51 @@ def main():
             frames = seq_dict.get('frames'); #print(len(frames))
             
             for frame, frame_list in frames.items(): 
-                #print(frame) # frame number?
-                # a list to hold multiple 'posv_rounded'
-                list_posv_rounded = []
-                # for every frame
-                for fr in frame_list:
-                    # if 'lbl' contain object of interest, i.e. fr['lbl']=='people' or fr['lbl']=='person'
-                    if fr['lbl'] in lbl_wanted:
-                        # if type is list
-                        if type(fr['pos']) is list:
-                            # if obj is visible, i.e. is 'posv' is non zeros
-                            if fr['pos'] != [0,0,0,0]:
-                                # if obj size satisfied a threshold, i.e. w > 30 and h > 60
-                                if fr['pos'][2]>=40 and fr['pos'][3]>=70: 
-                                    # a list to hold rounded 'posv'
-                                    posv_rounded = []
-                            
-                                    #print(v['lbl']) # not needed
-                                    #print(v['posv']) # YES, NEEDED
-                                    # round up decimal
-                                    posv_rounded = [round(p) for p in fr['pos']]; #print(posv_rounded)
-                                    # convert from [x, y, w, h] to [x_topleft, y_topleft, x_bottomright, y_bottomright]
-                                    posv_rounded[2] = posv_rounded[0] + posv_rounded[2]
-                                    posv_rounded[3] = posv_rounded[1] + posv_rounded[3]; #print(posv_rounded)
-                                    # put posv_rounded into the list list_posv_rounded, required when more than one obj present in a single frame
-                                    list_posv_rounded.append(posv_rounded); #print('\n'+'list_posv_rounded' + str(list_posv_rounded))
-                                    
-                                    #print(v['id']) # not needed
-                                    #print(v['str']) # not needed
-                                    #print(v['end']) # not needed
-                    
-                                    # generate filename
-                                    filename_bboxes = 'img{}{}{:04}.jpg'.format(imageset, seq, frame); #print('filename_bboxes: ' + filename_bboxes)
-                    
-                                    # write out list_posv_rounded
-                                    writebboxes(dirOut, filename_bboxes, list_posv_rounded)    
-                                    
-                                    # write out labels
-                                    writelabels(dirOut, filename_bboxes, list_posv_rounded)
-            
-                                    # copy the frame from one folder to another folder
-                                    copypositiveimages(dirIm, filename_bboxes, dirOut)
+                
+                # only take ~ 0.5%
+                if random.random() < 0.005:
+                
+                    #print(frame) # frame number?
+                    # a list to hold multiple 'posv_rounded'
+                    list_posv_rounded = []
+                    # for every frame
+                    for fr in frame_list:
+                        # if 'lbl' contain object of interest, i.e. fr['lbl']=='people' or fr['lbl']=='person'
+                        if fr['lbl'] in lbl_wanted:
+                            # if type is list
+                            if type(fr['pos']) is list:
+                                # if obj is visible, i.e. is 'posv' is non zeros
+                                if fr['pos'] != [0,0,0,0]:
+                                    # if obj size satisfied a threshold, i.e. w > 30 and h > 60
+                                    if fr['pos'][2]>=40 and fr['pos'][3]>=70: 
+                                        # a list to hold rounded 'posv'
+                                        posv_rounded = []
+                                
+                                        #print(v['lbl']) # not needed
+                                        #print(v['posv']) # YES, NEEDED
+                                        # round up decimal
+                                        posv_rounded = [round(p) for p in fr['pos']]; #print(posv_rounded)
+                                        # convert from [x, y, w, h] to [x_topleft, y_topleft, x_bottomright, y_bottomright]
+                                        posv_rounded[2] = posv_rounded[0] + posv_rounded[2]
+                                        posv_rounded[3] = posv_rounded[1] + posv_rounded[3]; #print(posv_rounded)
+                                        # put posv_rounded into the list list_posv_rounded, required when more than one obj present in a single frame
+                                        list_posv_rounded.append(posv_rounded); #print('\n'+'list_posv_rounded' + str(list_posv_rounded))
+                                        
+                                        #print(v['id']) # not needed
+                                        #print(v['str']) # not needed
+                                        #print(v['end']) # not needed
+
+                                        # generate filename
+                                        filename_bboxes = 'img{}{}{:04}.jpg'.format(imageset, seq, frame); #print('filename_bboxes: ' + filename_bboxes)
+                        
+                                        # write out list_posv_rounded
+                                        writebboxes(dirOut, filename_bboxes, list_posv_rounded)    
+                                        
+                                        # write out labels
+                                        writelabels(dirOut, filename_bboxes, list_posv_rounded)
+                
+                                        # copy the frame from one folder to another folder
+                                        copypositiveimages(dirIm, filename_bboxes, dirOut)
                                         
                 #sys.exit()
 
