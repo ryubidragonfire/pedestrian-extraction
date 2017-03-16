@@ -12,7 +12,8 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
 
 ## Download data
 - use [this](https://github.com/jainanshul/caltech-pedestrian-dataset-extractor/blob/master/download.sh) to download to `./data`, and extract.
-- for convenience, use `converter.py`
+
+- for convenience, it is included here as `download-untar.sh`
 
 ## Convert
 - use [this<sup>1</sup>](https://github.com/hizhangp/caltech-pedestrian-converter/blob/master/converter.py) to convert Caltech dataset to individual images with annotations of bounding box. 
@@ -21,7 +22,7 @@ https://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
   ```python
       2to3 filename.py -w # -w is to write
   ```
-- for convenience, use `download-untar.sh`
+- for convenience, it is included here as `converter.py`
 
 ## Extract necessary data required for Fast-R-CNN
 - use `extract-unique-labels-used.py` to extract unique labels used to label the Caltech images.
