@@ -73,7 +73,7 @@ def main():
             for frame, frame_list in frames.items(): 
                 
                 # only take ~ 0.5%
-                if random.random() < 0.005:
+                if random.random() < 0.10:
                 
                     #print(frame) # frame number?
                     # a list to hold multiple 'posv_rounded'

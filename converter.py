@@ -117,8 +117,8 @@ if __name__ == '__main__':
     
     # num ranges from 0~11
     #num = [0, 11]
-    #num = [0, 5]
-    #num = [6, 8]
+    #num = [0, 6]
+    #num = [6, 9]
     num = [9, 11]
 
     time_flag = time.time()
@@ -133,14 +133,17 @@ if __name__ == '__main__':
 
     #  convert .seq file into .jpg
     for i in range(num[0], num[1]):
+        print('i: ' + str(i))
         img_set_path = os.path.join(dir_path, 'set{:02}'.format(i))
         print(img_set_path)
         assert os.path.exists(img_set_path), 'Not exists: '.format(img_set_path)
         print('Extracting images from set{:02} ...'.format(i))
         for j in sorted(os.listdir(img_set_path)):
+            print('j: ' + j)
             imgs_path = os.path.join(img_set_path, j)
             imgs = read_seq(imgs_path)
             for ix, img in enumerate(imgs):
+                #print('ix: ' + str(ix) )
                 img_name = 'img{:02}{}{:04}.jpg'.format(i, j[2:4], ix)
                 img_path = os.path.join(img_save_path, img_name)
                 open(img_path, 'wb+').write(img)
