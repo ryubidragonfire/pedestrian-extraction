@@ -50,6 +50,11 @@ It gives:
   - Test images: 19,828
   - Validation images: 36,638
 
+## Create Small Dataset
+- use `extract-labelled-data-for-cntk-fast-r-cnn-small.py` and `extract-negative-samples-small.py` to create dataset of size of your choice. 
+- In `extract-labelled-data-for-cntk-fast-r-cnn-small.py`, size is described by *fraction of the whole dataset*
+- In `extract-negative-samples-small.py`, size is described by *number of samples*
+
 ## TODO:
 - try fast-r-cnn
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
