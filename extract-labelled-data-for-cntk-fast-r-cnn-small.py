@@ -6,8 +6,9 @@ Created on Mon Mar  6 13:45:34 2017
 purpose: extract data for CNTK Fast-R-CNN
 """
 
-### -i ./data/val_annotations.pkl -o ./output_for_cntk/small/val/positives/ -im ./data/val_images/
-### -i ./data/train_annotations.pkl -o ./for_cntk/small/train/positives/ -im ./data/train_images/
+## -i ./data/train_annotations.pkl -o ./for_cntk/small/train/positives/ -im ./data/train_images/ -f 0.01
+## -i ./data/test_annotations.pkl -o ./for_cntk/small/test/positives/ -im ./data/test_images/ -f 0.10
+## -i ./data/val_annotations.pkl -o ./for_cntk/small/val/positives/ -im ./data/val_images/ -f 0.01
 
 import pickle
 import argparse
@@ -17,14 +18,14 @@ import random
 
 # write out bounding boxes
 def writebboxes(dirOut, filename_bboxes, list_posv_rounded):
-    with open(dirOut + filename_bboxes + '.bboxes.tsv', 'w', newline='') as f:
+    with open(dirOut + filename_bboxes[0:-4] + '.bboxes.tsv', 'w', newline='') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(list_posv_rounded)
     return
  
 # write out labels
 def writelabels(dirOut, filename_bboxes, list_posv_rounded):
-    with open(dirOut + filename_bboxes + '.bboxes.labels.tsv', 'w', newline='') as f:
+    with open(dirOut + filename_bboxes[0:-4] + '.bboxes.labels.tsv', 'w', newline='') as f:
         writer = csv.writer(f)
         for l in range(len(list_posv_rounded)):
             writer.writerow(['person'])
@@ -50,10 +51,12 @@ def main():
     argparser.add_argument('-i', '--pklIn', help='filename.pkl', required=True)
     argparser.add_argument('-o', '--dirOut', help='directory for output files', required=True)
     argparser.add_argument('-im', '--dirIm', help='directory for images files to copy from', required=True)
+    argparser.add_argument('-f', '--frac', help='fraction of the complete set, e.g. 0.01', required=True)
     args = argparser.parse_args()
     pklIn = args.pklIn
     dirOut = args.dirOut
     dirIm = args.dirIm
+    frac = float(args.frac)
     
     annotations = pickle.load(open(pklIn, "rb" ))
     
@@ -73,7 +76,7 @@ def main():
             for frame, frame_list in frames.items(): 
                 
                 # only take ~ 0.5%
-                if random.random() < 0.10:
+                if random.random() < frac:
                 
                     #print(frame) # frame number?
                     # a list to hold multiple 'posv_rounded'

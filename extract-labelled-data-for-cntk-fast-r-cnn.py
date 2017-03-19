@@ -8,6 +8,8 @@ purpose: extract data for CNTK Fast-R-CNN
 
 ### -i ./data/val_annotations.pkl -o ./output_for_cntk/val/positives/ -im ./data/val_images/
 ### -i ./data/train_annotations.pkl -o ./for_cntk/train/positives/ -im ./data/train_images/
+### -i ./data/val_annotations.pkl -o ./for_cntk/val/positives/ -im ./data/val_images/
+### -i ./data/test_annotations.pkl -o ./for_cntk/test/positives/ -im ./data/test_images/
 
 import pickle
 import argparse
@@ -16,14 +18,14 @@ import csv
 
 # write out bounding boxes
 def writebboxes(dirOut, filename_bboxes, list_posv_rounded):
-    with open(dirOut + filename_bboxes + '.bboxes.tsv', 'w', newline='') as f:
+    with open(dirOut + filename_bboxes[0:-4] + '.bboxes.tsv', 'w', newline='') as f:
         writer = csv.writer(f, delimiter='\t')
         writer.writerows(list_posv_rounded)
     return
  
 # write out labels
 def writelabels(dirOut, filename_bboxes, list_posv_rounded):
-    with open(dirOut + filename_bboxes + '.bboxes.labels.tsv', 'w', newline='') as f:
+    with open(dirOut + filename_bboxes[0:-4] + '.bboxes.labels.tsv', 'w', newline='') as f:
         writer = csv.writer(f)
         for l in range(len(list_posv_rounded)):
             writer.writerow(['person'])

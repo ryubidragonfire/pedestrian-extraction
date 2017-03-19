@@ -6,10 +6,9 @@ Created on Mon Mar  6 15:27:22 2017
 purpose: extract negative samples
 """
 
-### -i ./data/train_annotations.pkl -o ./for_cntk/train/negatives/ -im ./data/train_images/
-### -i ./data/test_annotations.pkl -o ./for_cntk/test/negatives/ -im ./data/test_images/
-### -i ./data/val_annotations.pkl -o ./for_cntk/val/negatives/ -im ./data/val_images/
-### -i ./data/val_annotations.pkl -o ./for_cntk/small/val/negatives/ -im ./data/val_images/
+### -i ./data/train_annotations.pkl -o ./for_cntk/small/train/negatives/ -im ./data/train_images/ -n 30
+### -i ./data/test_annotations.pkl -o ./for_cntk/small/test/negatives/ -im ./data/test_images/ -n 30
+### -i ./data/val_annotations.pkl -o ./for_cntk/small/val/negatives/ -im ./data/val_images/ -n 30
 
 import pickle
 import argparse
@@ -34,10 +33,12 @@ def main():
     argparser.add_argument('-i', '--pklIn', help='filename.pkl', required=True)
     argparser.add_argument('-o', '--dirOut', help='directory for output files', required=True)
     argparser.add_argument('-im', '--dirIm', help='directory for images files to copy from', required=True)
+    argparser.add_argument('-n', '--n', help='number of samples required, e.g. 20', required=True)
     args = argparser.parse_args()
     pklIn = args.pklIn
     dirOut = args.dirOut
     dirIm = args.dirIm
+    n = int(args.n)
     
     annotations = pickle.load(open(pklIn, "rb" ))
     
@@ -68,7 +69,7 @@ def main():
     negative_image_list = list(set(all_image_list) - set(positive_image_list))
     
     # randomly select n number of images
-    negative_image_list_small = random.sample(negative_image_list, 20)
+    negative_image_list_small = random.sample(negative_image_list, n)
     
     for img in negative_image_list_small:
         # copy negative samples into a folder
