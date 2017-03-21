@@ -61,6 +61,7 @@ It gives:
 ## TODO:
 - re-train with large dataset
 - deploy as an [Azure webapp](https://github.com/ilkarman/Blog/blob/master/rndm/AzureWebApp.md)
+- deploy via [node.js](https://github.com/nadavbar/node-cntk-fastrcnn)
 
 ## Notes:
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
