@@ -55,8 +55,14 @@ It gives:
 - In `extract-labelled-data-for-cntk-fast-r-cnn-small.py`, size is described by *fraction of the whole dataset*
 - In `extract-negative-samples-small.py`, size is described by *number of samples*
 
+## Example on CNTK Fast-R-CNN
+- Done with small set of training data.
+
 ## TODO:
-- try fast-r-cnn
+- re-train with large dataset
+- deploy as an [Azure webapp](https://github.com/ilkarman/Blog/blob/master/rndm/AzureWebApp.md)
+
+## Notes:
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
 
 ## Known Bugs:
