@@ -62,6 +62,8 @@ It gives:
 - re-train with large dataset
 - deploy as an [Azure webapp](https://github.com/ilkarman/Blog/blob/master/rndm/AzureWebApp.md)
 - deploy via [node.js](https://github.com/nadavbar/node-cntk-fastrcnn)
+- deploy as [web service](https://blogs.technet.microsoft.com/machinelearning/2015/08/21/build-and-deploy-a-predictive-web-app-using-python-and-azure-ml/)
+- deploy as [web service](https://gallery.cortanaintelligence.com/Notebook/Deployment-of-AzureML-Web-Services-from-Python-Notebooks-4)
 
 ## Notes:
 - see my notes on [cntk-fast-r-cnn](https://github.com/ryubidragonfire/cntk-and-fast-r-cnn)
