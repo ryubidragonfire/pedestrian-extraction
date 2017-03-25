@@ -65,6 +65,7 @@ It gives:
 - deploy as [web service](https://blogs.technet.microsoft.com/machinelearning/2015/08/21/build-and-deploy-a-predictive-web-app-using-python-and-azure-ml/)
 - deploy as [web service](https://gallery.cortanaintelligence.com/Notebook/Deployment-of-AzureML-Web-Services-from-Python-Notebooks-4)
 - [Flask](https://medium.com/@amirziai/a-flask-api-for-serving-scikit-learn-models-c8bcdaa41daa#.cs5694sq3)
+  - [code](https://github.com/amirziai/sklearnflask/blob/master/main.py)
 - [linux](https://loads.pickle.me.uk/2016/04/04/deploying-a-scikit-learn-classifier-to-production/)
 
 ## Notes:
